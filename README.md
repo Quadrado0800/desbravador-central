@@ -1,4 +1,4 @@
-# Central de Impressões - v0.2
+# Central de Impressões - v0.5
 
 Extensão + Flask + requests para aproveitar a sessão existente do Desbravador.
 
