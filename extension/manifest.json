@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Central de Impressões - Desbravador",
+  "version": "0.2.0",
+  "description": "Integra a sessão do Desbravador com a Central de Impressões local.",
+  "permissions": ["cookies"],
+  "host_permissions": [
+    "https://desbravadorweb.com.br/*",
+    "http://localhost:5000/*"
+  ],
+  "action": {"default_popup": "popup.html"}
+}
