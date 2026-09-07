@@ -14,6 +14,7 @@ from win32com.client import Dispatch
 import fitz
 import re
 import pythoncom
+
 BASE_DIR = Path(__file__).resolve().parent
 SUMATRA_PATH = BASE_DIR / "tools" / "SumatraPDF.exe"
 
