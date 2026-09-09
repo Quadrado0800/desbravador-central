@@ -1,4 +1,4 @@
-# Central de Impressões v0.2
+# Central de Impressões v0.6
 
 ## Instalação
 
