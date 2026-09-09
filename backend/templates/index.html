@@ -115,6 +115,49 @@ details.fold > summary::-webkit-details-marker{display:none}
 			</label>
 		</div>
 	</div>
+	<div class="card">
+		<div class="toolbar">
+			<div>
+				<h2 style="margin:0 0 6px">Previsão de Café da Manhã</h2>
+				<div class="small">
+					Calculado com base na ocupação atual, check-ins e check-outs do dia.
+				</div>
+			</div>
+
+			<button
+				class="primary"
+				type="button"
+				id="btnPrevisaoCafe"
+				onclick="atualizarPrevisaoCafe()">
+				Atualizar
+			</button>
+		</div>
+
+		<div
+			id="previsaoCafe"
+			style="
+				display:grid;
+				grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+				gap:12px;
+				margin-top:16px;
+			"
+		>
+			<div class="small">
+				Clique em "Atualizar" para consultar a previsão.
+			</div>
+		</div>
+
+		<div style="margin-top:16px;">
+			<button
+				class="secondary"
+				type="button"
+				id="btnCopiarCafe"
+				onclick="copiarPrevisaoCafe()"
+				disabled>
+				Copiar mensagem
+			</button>
+		</div>
+	</div>
 	<details class="card fold" open>
 		<summary>
 			<div class="summary-label">
@@ -415,6 +458,184 @@ async function imprimirGovernanca(){
 
     }
 }
+
+let previsaoCafeCache = null;
+
+async function atualizarPrevisaoCafe(){
+
+    const botao = document.getElementById("btnPrevisaoCafe");
+    const box = document.getElementById("previsaoCafe");
+
+    const textoOriginal = botao.textContent;
+
+    botao.disabled = true;
+    botao.textContent = "Consultando...";
+
+    box.innerHTML = `
+        <div class="small">
+            Consultando Desbravador...
+        </div>
+    `;
+
+    try{
+
+        const r = await fetch("/api/previsao-cafe");
+
+        const d = await r.json();
+
+        if(!r.ok || !d.ok){
+            throw new Error(d.error || `HTTP ${r.status}`);
+        }
+
+        previsaoCafeCache = d;
+
+        box.innerHTML = `
+            <div class="card" style="padding:16px;box-shadow:none;">
+                <div class="small">UH's ocupadas hoje</div>
+                <div style="font-size:26px;font-weight:700;">
+                    ${d.uh_atual}
+                </div>
+            </div>
+
+            <div class="card" style="padding:16px;box-shadow:none;">
+                <div class="small">Hóspedes na casa</div>
+                <div style="font-size:26px;font-weight:700;">
+                    ${d.pax_atual}
+                </div>
+            </div>
+
+            <div class="card" style="padding:16px;box-shadow:none;">
+                <div class="small">Check-in</div>
+                <div style="font-size:22px;font-weight:700;">
+                    ${d.checkin_uh} UH | ${d.checkin_pax} PAX
+                </div>
+            </div>
+
+            <div class="card" style="padding:16px;box-shadow:none;">
+                <div class="small">Check-out previsto</div>
+                <div style="font-size:22px;font-weight:700;">
+                    ${d.checkout_uh} UH | ${d.checkout_pax} PAX
+                </div>
+            </div>
+
+            <div
+                class="card"
+                style="
+                    padding:16px;
+                    box-shadow:none;
+                    grid-column:1/-1;
+                "
+            >
+                <div class="small">
+                    Café da manhã para amanhã
+                </div>
+
+                <div style="font-size:30px;font-weight:700;">
+                    ${d.uh_amanha} UHs | ${d.pax_amanha} PAX
+                </div>
+            </div>
+        `;
+
+        document.getElementById("btnCopiarCafe").disabled = false;
+
+        msg(
+            `Previsão atualizada.\n` +
+            `${d.uh_amanha} UHs | ${d.pax_amanha} PAX para o café de amanhã.`
+        );
+
+    }catch(e){
+
+        previsaoCafeCache = null;
+
+        box.innerHTML = `
+            <div class="small">
+                Erro ao consultar a previsão.
+            </div>
+        `;
+
+        document.getElementById("btnCopiarCafe").disabled = true;
+
+        msg("Erro ao atualizar previsão: " + e.message);
+
+    }finally{
+
+        botao.disabled = false;
+        botao.textContent = textoOriginal;
+
+    }
+}
+
+
+async function copiarPrevisaoCafe(){
+
+    if(!previsaoCafeCache){
+        msg("Atualize a previsão antes de copiar.");
+        return;
+    }
+
+    const d = previsaoCafeCache;
+    const botao = document.getElementById("btnCopiarCafe");
+
+    const dataHoje = d.data;
+
+    const partes = dataHoje.split("/");
+
+    const data = new Date(
+        Number(partes[2]),
+        Number(partes[1]) - 1,
+        Number(partes[0])
+    );
+
+    data.setDate(data.getDate() + 1);
+
+    const dataAmanha =
+        String(data.getDate()).padStart(2, "0") + "/" +
+        String(data.getMonth() + 1).padStart(2, "0") + "/" +
+        data.getFullYear();
+
+    const mensagem =
+`Bom dia!
+📊 Atualização do dia ${dataHoje}:
+- 🛌 ${d.uh_atual} UH's ocupadas: 
+- 👥Total de hóspedes (PAX): ${d.pax_atual}
+🔁 Movimentações do dia:
+
+📈Check-in: ${String(d.checkin_uh).padStart(2, "0")} UH's | ${d.checkin_pax} Pax
+- 
+- 
+📉Check-out previsto: ${String(d.checkout_uh).padStart(2, "0")} UH's | ${d.checkout_pax} Pax
+- 
+- 
+🍽️ Café da manhã para amanhã (${dataAmanha})
+- 🌄
+
+${d.uh_amanha} UHs | pax ${d.pax_amanha}`;
+
+    try{
+
+        await navigator.clipboard.writeText(mensagem);
+
+        // Confirmação visual no próprio botão
+        const textoOriginal = botao.textContent;
+
+        botao.textContent = "Copiado!";
+        botao.disabled = true;
+
+        // Mantém a confirmação por 2 segundos
+        setTimeout(() => {
+            botao.textContent = textoOriginal;
+            botao.disabled = false;
+        }, 2000);
+
+        msg("Mensagem copiada para a área de transferência.");
+
+    }catch(e){
+
+        msg("Erro ao copiar mensagem: " + e.message);
+
+    }
+}
+
 
 carregarImpressoras();
 </script>

@@ -65,6 +65,126 @@ TEMP_DIR.mkdir(parents=True, exist_ok=True)
 def get_temp_dir():
     return TEMP_DIR
 
+def extrair_totais_relatorio(pdf_path):
+    """
+    Extrai os totais de UH e PAX de um relatório PDF
+    do Desbravador.
+    """
+
+    documento = fitz.open(pdf_path)
+
+    try:
+        texto = "\n".join(
+            pagina.get_text()
+            for pagina in documento
+        )
+
+        return texto
+
+    finally:
+        documento.close()
+
+def extrair_totais_checkin(texto):
+    """
+    Extrai os totais de UHs e PAX do relatório
+    de previsão de Check-in.
+    """
+
+    match = re.search(
+        r"Total\s+(\d+).*?"
+        r"Total\s+(\d+)",
+        texto,
+        re.DOTALL
+    )
+
+    if not match:
+        raise RuntimeError(
+            "Não foi possível encontrar os totais "
+            "de UH e PAX no relatório de Check-in."
+        )
+
+    uhs = int(match.group(1))
+    pax = int(match.group(2))
+
+    return {
+        "uh": uhs,
+        "pax": pax
+    }
+
+def extrair_totais_checkout(texto):
+    """
+    Extrai os totais de UHs e PAX do relatório
+    de previsão de Check-out.
+
+    O relatório apresenta os totais no final como:
+        0
+        10
+        20
+        Totais
+        Totais do período 0
+        10
+        20
+
+    Nesse formato:
+        10 = UH
+        20 = PAX
+    """
+
+    match = re.search(
+        r"Totais do período\s+(\d+)\s+(\d+)\s+(\d+)",
+        texto,
+        re.DOTALL
+    )
+
+    if not match:
+        raise RuntimeError(
+            "Não foi possível encontrar os totais "
+            "de UH e PAX no relatório de Check-out."
+        )
+
+    uhs = int(match.group(2))
+    pax = int(match.group(3))
+
+    return {
+        "uh": uhs,
+        "pax": pax
+    }
+
+def extrair_ocupacao_atual(texto):
+    """
+    Extrai as UHs ocupadas e o total de PAX
+    do relatório de Café/Pensão.
+    """
+
+    match_pax = re.search(
+        r"Total de PAX\s+(\d+)",
+        texto,
+        re.IGNORECASE
+    )
+
+    match_uh = re.search(
+        r"Total de UHs Ocupadas\s+(\d+)",
+        texto,
+        re.IGNORECASE
+    )
+
+    if not match_pax:
+        raise RuntimeError(
+            "Não foi possível encontrar o Total de PAX "
+            "no relatório de Café/Pensão."
+        )
+
+    if not match_uh:
+        raise RuntimeError(
+            "Não foi possível encontrar o Total de UHs "
+            "Ocupadas no relatório de Café/Pensão."
+        )
+
+    return {
+        "uh": int(match_uh.group(1)),
+        "pax": int(match_pax.group(1))
+    }
+
 # Configure these optional files.
 DESKTOP = Path(os.path.join(os.environ["USERPROFILE"], "Desktop"))
 FICHA_HOSPEDES_PATH = DESKTOP / "Ficha_Hospedagem.docx"
@@ -87,9 +207,20 @@ def get_print_settings(overrides=None):
 BASE_URL="https://desbravadorweb.com.br"
 _desbravador_cookies=[]
 
+
 # ============================================================
 # RELATÓRIOS DO DESBRAVADOR
 # ============================================================
+
+RELATORIO_CHECKOUT_URL = (
+    f"{BASE_URL}/relatorios/"
+    "relatorioCheckoutPrevisao/imprimir"
+)
+
+RELATORIO_OCUPACAO_URL = (
+    f"{BASE_URL}/relatorios/"
+    "relatorioUhLiberadaOcupada/imprimir"
+)
 
 RELATORIO_CHECKIN_URL = (
     f"{BASE_URL}/relatorios/"
@@ -130,15 +261,65 @@ def baixar_relatorio(session, url, params, nome_arquivo):
 
     response.raise_for_status()
 
-    content_type = response.headers.get("Content-Type", "").lower()
+    # Verifica se o Desbravador realmente retornou PDF
+    if not response.content.startswith(b"%PDF"):
+        raise RuntimeError(
+            "O Desbravador não retornou um PDF."
+        )
 
-    if "pdf" not in content_type and not response.content.startswith(b"%PDF"):
+    # Garante que a pasta temporária exista
+    temp_dir = get_temp_dir()
+    temp_dir.mkdir(parents=True, exist_ok=True)
+
+    path = temp_dir / nome_arquivo
+
+    # Salva o PDF
+    path.write_bytes(response.content)
+
+    # Confirma que o arquivo foi realmente criado
+    if not path.exists():
+        raise RuntimeError(
+            f"O PDF não foi criado: {path}"
+        )
+
+    print(f"[relatório] PDF salvo em: {path}")
+    print(f"[relatório] Tamanho: {path.stat().st_size} bytes")
+
+    return path
+
+def baixar_relatorio_pdf(session, url, params, nome_arquivo):
+    """
+    Baixa um relatório PDF do Desbravador.
+    """
+
+    headers = {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/pdf,*/*",
+        "Referer": BASE_URL,
+    }
+
+    response = session.get(
+        url,
+        params=params,
+        headers=headers,
+        timeout=60
+    )
+
+    response.raise_for_status()
+
+    if not response.content.startswith(b"%PDF"):
         raise RuntimeError(
             "O Desbravador não retornou um PDF."
         )
 
     path = get_temp_dir() / nome_arquivo
+
     path.write_bytes(response.content)
+
+    if not path.exists():
+        raise RuntimeError(
+            f"PDF não foi criado: {path}"
+        )
 
     return path
 
@@ -838,6 +1019,362 @@ def relatorio_governanca():
             ok=False,
             error=str(e)
         ), 500
+
+@app.get("/api/teste-relatorio-checkin")
+def teste_relatorio_checkin():
+
+    if not _desbravador_cookies:
+        return jsonify(
+            ok=False,
+            error="Sessão não conectada."
+        ), 400
+
+    pdf = None
+
+    try:
+
+        session = build_session()
+
+        data = datetime.now().strftime("%d/%m/%Y")
+
+        params = [
+            ("rel", "true"),
+            ("tipoRelatorio", "DETALHADO"),
+            ("pessoaTitular.id", ""),
+            ("pessoaTitular.razaoNome", ""),
+            ("dataInicio", data),
+            ("dataFim", data),
+            ("ordenacao", "RESERVA"),
+            ("exibirHospedeClassificacao", "on"),
+            ("listarObservacaoDosHospedes", "on"),
+            ("listarObservacaoPublicaDaHospedagem", "on"),
+        ]
+
+        pdf = baixar_relatorio_pdf(
+            session,
+            RELATORIO_CHECKIN_URL,
+            params,
+            "teste_checkin.pdf"
+        )
+
+        texto = extrair_totais_relatorio(pdf)
+
+        print("=" * 60)
+        print("RELATÓRIO CHECK-IN")
+        print("=" * 60)
+        print(texto)
+        print("=" * 60)
+
+        return jsonify(
+            ok=True,
+            texto=texto
+        )
+
+    except Exception as e:
+
+        return jsonify(
+            ok=False,
+            error=str(e)
+        ), 500
+
+    finally:
+
+        if pdf and pdf.exists():
+            try:
+                pdf.unlink()
+            except OSError:
+                pass
+
+@app.get("/api/teste-relatorio-checkout")
+def teste_relatorio_checkout():
+
+    if not _desbravador_cookies:
+        return jsonify(
+            ok=False,
+            error="Sessão não conectada."
+        ), 400
+
+    pdf = None
+
+    try:
+
+        session = build_session()
+
+        data = datetime.now().strftime("%d/%m/%Y")
+
+        params = [
+            ("rel", "true"),
+            ("dataInicial", data),
+            ("dataFinal", data),
+        ]
+
+        pdf = baixar_relatorio_pdf(
+            session,
+            RELATORIO_CHECKOUT_URL,
+            params,
+            "teste_checkout.pdf"
+        )
+
+        texto = extrair_totais_relatorio(pdf)
+
+        totais = extrair_totais_checkout(texto)
+
+        print("=" * 60)
+        print("RELATÓRIO CHECK-OUT")
+        print("=" * 60)
+        print(texto)
+        print("=" * 60)
+        print("TOTAIS:", totais)
+        print("=" * 60)
+
+        return jsonify(
+            ok=True,
+            totais=totais,
+            texto=texto
+        )
+
+    except Exception as e:
+
+        return jsonify(
+            ok=False,
+            error=str(e)
+        ), 500
+
+    finally:
+
+        if pdf and pdf.exists():
+            try:
+                pdf.unlink()
+            except OSError:
+                pass
+
+@app.get("/api/teste-ocupacao-atual")
+def teste_ocupacao_atual():
+
+    if not _desbravador_cookies:
+        return jsonify(
+            ok=False,
+            error="Sessão não conectada."
+        ), 400
+
+    pdf = None
+
+    try:
+
+        session = build_session()
+
+        data = datetime.now().strftime("%d/%m/%Y")
+
+        params = [
+            ("rel", "true"),
+            ("tipoListagem", "CAFE_PENSAO"),
+            ("titular.id", ""),
+            ("tipoDataAConsiderar", data),
+            ("data", data),
+            ("uhTipo.id", ""),
+        ]
+
+        pdf = baixar_relatorio_pdf(
+            session,
+            RELATORIO_OCUPACAO_URL,
+            params,
+            "teste_ocupacao.pdf"
+        )
+
+        texto = extrair_totais_relatorio(pdf)
+      # VOLTAR AQUI
+        totais = extrair_ocupacao_atual(texto)
+
+        print("=" * 60)
+        print("OCUPAÇÃO ATUAL")
+        print("=" * 60)
+        print("TOTAIS:", totais)
+        print("=" * 60)
+
+        return jsonify(
+            ok=True,
+            totais=totais,
+            texto=texto
+        )
+
+    except Exception as e:
+
+        return jsonify(
+            ok=False,
+            error=str(e)
+        ), 500
+
+    finally:
+
+        if pdf and pdf.exists():
+            try:
+                pdf.unlink()
+            except OSError:
+                pass
+
+
+@app.get("/api/previsao-cafe")
+def previsao_cafe():
+
+    if not _desbravador_cookies:
+        return jsonify(
+            ok=False,
+            error="Sessão não conectada."
+        ), 400
+
+    pdfs = []
+
+    try:
+        session = build_session()
+
+        hoje = datetime.now()
+        data_hoje = hoje.strftime("%d/%m/%Y")
+
+        # =====================================================
+        # 1. OCUPAÇÃO ATUAL
+        # =====================================================
+
+        params_ocupacao = [
+            ("rel", "true"),
+            ("tipoListagem", "CAFE_PENSAO"),
+            ("titular.id", ""),
+            ("tipoDataAConsiderar", data_hoje),
+            ("data", data_hoje),
+            ("uhTipo.id", ""),
+        ]
+
+        pdf_ocupacao = baixar_relatorio_pdf(
+            session,
+            RELATORIO_OCUPACAO_URL,
+            params_ocupacao,
+            "previsao_ocupacao.pdf"
+        )
+
+        pdfs.append(pdf_ocupacao)
+
+        texto_ocupacao = extrair_totais_relatorio(
+            pdf_ocupacao
+        )
+
+        ocupacao = extrair_ocupacao_atual(
+            texto_ocupacao
+        )
+
+        # =====================================================
+        # 2. CHECK-IN
+        # =====================================================
+
+        params_checkin = [
+            ("rel", "true"),
+            ("tipoRelatorio", "DETALHADO"),
+            ("pessoaTitular.id", ""),
+            ("pessoaTitular.razaoNome", ""),
+            ("dataInicio", data_hoje),
+            ("dataFim", data_hoje),
+            ("ordenacao", "RESERVA"),
+            ("exibirHospedeClassificacao", "on"),
+            ("listarObservacaoDosHospedes", "on"),
+            ("listarObservacaoPublicaDaHospedagem", "on"),
+        ]
+
+        pdf_checkin = baixar_relatorio_pdf(
+            session,
+            RELATORIO_CHECKIN_URL,
+            params_checkin,
+            "previsao_checkin.pdf"
+        )
+
+        pdfs.append(pdf_checkin)
+
+        texto_checkin = extrair_totais_relatorio(
+            pdf_checkin
+        )
+
+        checkin = extrair_totais_checkin(
+            texto_checkin
+        )
+
+        # =====================================================
+        # 3. CHECK-OUT
+        # =====================================================
+
+        params_checkout = [
+            ("rel", "true"),
+            ("dataInicial", data_hoje),
+            ("dataFinal", data_hoje),
+        ]
+
+        pdf_checkout = baixar_relatorio_pdf(
+            session,
+            RELATORIO_CHECKOUT_URL,
+            params_checkout,
+            "previsao_checkout.pdf"
+        )
+
+        pdfs.append(pdf_checkout)
+
+        texto_checkout = extrair_totais_relatorio(
+            pdf_checkout
+        )
+
+        checkout = extrair_totais_checkout(
+            texto_checkout
+        )
+
+        # =====================================================
+        # 4. CÁLCULO
+        # =====================================================
+
+        uh_amanha = (
+            ocupacao["uh"]
+            + checkin["uh"]
+            - checkout["uh"]
+        )
+
+        pax_amanha = (
+            ocupacao["pax"]
+            + checkin["pax"]
+            - checkout["pax"]
+        )
+
+        # =====================================================
+        # 5. RESULTADO
+        # =====================================================
+
+        return jsonify({
+            "ok": True,
+
+            "data": data_hoje,
+
+            "uh_atual": ocupacao["uh"],
+            "pax_atual": ocupacao["pax"],
+
+            "checkin_uh": checkin["uh"],
+            "checkin_pax": checkin["pax"],
+
+            "checkout_uh": checkout["uh"],
+            "checkout_pax": checkout["pax"],
+
+            "uh_amanha": uh_amanha,
+            "pax_amanha": pax_amanha
+        })
+
+    except Exception as e:
+
+        return jsonify({
+            "ok": False,
+            "error": str(e)
+        }), 500
+
+    finally:
+
+        for pdf in pdfs:
+            try:
+                if pdf.exists():
+                    pdf.unlink()
+            except OSError:
+                pass
+
 
 @app.get("/health")
 def health(): return jsonify(ok=True)
