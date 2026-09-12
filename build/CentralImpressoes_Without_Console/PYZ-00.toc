@@ -2171,6 +2171,10 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\Lib\\typing.py',
    'PYMODULE'),
+  ('typing_extensions',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\typing_extensions.py',
+   'PYMODULE'),
   ('urllib',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\Lib\\urllib\\__init__.py',

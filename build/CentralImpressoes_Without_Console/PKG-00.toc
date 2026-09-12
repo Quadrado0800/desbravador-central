@@ -110,6 +110,10 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\unicodedata.pyd',
    'EXTENSION'),
+  ('_overlapped.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_overlapped.pyd',
+   'EXTENSION'),
   ('_ssl.pyd',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_ssl.pyd',
@@ -118,10 +122,6 @@
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_queue.pyd',
    'EXTENSION'),
-  ('_wmi.pyd',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_wmi.pyd',
-   'EXTENSION'),
   ('_multiprocessing.pyd',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_multiprocessing.pyd',
@@ -129,6 +129,14 @@
   ('pyexpat.pyd',
    'C:\\Program '
    'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\pyexpat.pyd',
+   'EXTENSION'),
+  ('_asyncio.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_asyncio.pyd',
+   'EXTENSION'),
+  ('_wmi.pyd',
+   'C:\\Program '
+   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_wmi.pyd',
    'EXTENSION'),
   ('_ctypes.pyd',
    'C:\\Program '
@@ -178,14 +186,6 @@
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe\\_speedups.cp313-win_amd64.pyd',
    'EXTENSION'),
-  ('_overlapped.pyd',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_overlapped.pyd',
-   'EXTENSION'),
-  ('_asyncio.pyd',
-   'C:\\Program '
-   'Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs\\_asyncio.pyd',
-   'EXTENSION'),
   ('charset_normalizer\\cd.cp313-win_amd64.pyd',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\charset_normalizer\\cd.cp313-win_amd64.pyd',
@@ -231,33 +231,33 @@
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\backend\\tools\\SumatraPDF-settings.txt',
    'DATA'),
-  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\INSTALLER',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\INSTALLER',
-   'DATA'),
   ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\top_level.txt',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\top_level.txt',
-   'DATA'),
-  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\licenses\\LICENSE',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\licenses\\LICENSE',
-   'DATA'),
-  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\REQUESTED',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\REQUESTED',
-   'DATA'),
-  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\RECORD',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\RECORD',
    'DATA'),
   ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\METADATA',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\METADATA',
    'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\licenses\\LICENSE',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\licenses\\LICENSE',
+   'DATA'),
   ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\WHEEL',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\WHEEL',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\INSTALLER',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\INSTALLER',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\RECORD',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\RECORD',
+   'DATA'),
+  ('setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\REQUESTED',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\setuptools\\_vendor\\importlib_metadata-8.7.1.dist-info\\REQUESTED',
    'DATA'),
   ('setuptools\\_vendor\\jaraco\\text\\Lorem ipsum.txt',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
@@ -272,117 +272,117 @@
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\certifi\\py.typed',
    'DATA'),
-  ('itsdangerous-2.2.0.dist-info\\LICENSE.txt',
+  ('click-8.5.0.dist-info\\licenses\\LICENSE.txt',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\LICENSE.txt',
-   'DATA'),
-  ('flask-3.1.3.dist-info\\licenses\\LICENSE.txt',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\licenses\\LICENSE.txt',
-   'DATA'),
-  ('markupsafe-3.0.3.dist-info\\INSTALLER',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\INSTALLER',
-   'DATA'),
-  ('werkzeug-3.1.8.dist-info\\METADATA',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\METADATA',
-   'DATA'),
-  ('markupsafe-3.0.3.dist-info\\WHEEL',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\WHEEL',
-   'DATA'),
-  ('click-8.5.0.dist-info\\WHEEL',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\WHEEL',
-   'DATA'),
-  ('markupsafe-3.0.3.dist-info\\top_level.txt',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\top_level.txt',
-   'DATA'),
-  ('itsdangerous-2.2.0.dist-info\\WHEEL',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\WHEEL',
-   'DATA'),
-  ('itsdangerous-2.2.0.dist-info\\METADATA',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\METADATA',
-   'DATA'),
-  ('flask-3.1.3.dist-info\\METADATA',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\METADATA',
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\licenses\\LICENSE.txt',
    'DATA'),
   ('werkzeug-3.1.8.dist-info\\RECORD',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\RECORD',
    'DATA'),
-  ('werkzeug-3.1.8.dist-info\\WHEEL',
+  ('itsdangerous-2.2.0.dist-info\\WHEEL',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\WHEEL',
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\WHEEL',
    'DATA'),
-  ('werkzeug-3.1.8.dist-info\\licenses\\LICENSE.txt',
+  ('itsdangerous-2.2.0.dist-info\\LICENSE.txt',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\licenses\\LICENSE.txt',
-   'DATA'),
-  ('werkzeug-3.1.8.dist-info\\INSTALLER',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\INSTALLER',
-   'DATA'),
-  ('markupsafe-3.0.3.dist-info\\licenses\\LICENSE.txt',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\licenses\\LICENSE.txt',
-   'DATA'),
-  ('click-8.5.0.dist-info\\METADATA',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\METADATA',
-   'DATA'),
-  ('click-8.5.0.dist-info\\licenses\\LICENSE.txt',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\licenses\\LICENSE.txt',
-   'DATA'),
-  ('flask-3.1.3.dist-info\\INSTALLER',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\INSTALLER',
-   'DATA'),
-  ('itsdangerous-2.2.0.dist-info\\INSTALLER',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\INSTALLER',
-   'DATA'),
-  ('itsdangerous-2.2.0.dist-info\\RECORD',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\RECORD',
-   'DATA'),
-  ('flask-3.1.3.dist-info\\WHEEL',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\WHEEL',
-   'DATA'),
-  ('markupsafe-3.0.3.dist-info\\METADATA',
-   'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\METADATA',
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\LICENSE.txt',
    'DATA'),
   ('click-8.5.0.dist-info\\INSTALLER',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\INSTALLER',
    'DATA'),
-  ('flask-3.1.3.dist-info\\REQUESTED',
+  ('itsdangerous-2.2.0.dist-info\\RECORD',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\REQUESTED',
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\RECORD',
    'DATA'),
-  ('flask-3.1.3.dist-info\\entry_points.txt',
+  ('flask-3.1.3.dist-info\\INSTALLER',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\entry_points.txt',
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\INSTALLER',
+   'DATA'),
+  ('werkzeug-3.1.8.dist-info\\INSTALLER',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\INSTALLER',
+   'DATA'),
+  ('flask-3.1.3.dist-info\\licenses\\LICENSE.txt',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\licenses\\LICENSE.txt',
+   'DATA'),
+  ('click-8.5.0.dist-info\\WHEEL',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\WHEEL',
    'DATA'),
   ('click-8.5.0.dist-info\\RECORD',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\RECORD',
    'DATA'),
-  ('flask-3.1.3.dist-info\\RECORD',
+  ('flask-3.1.3.dist-info\\entry_points.txt',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
-   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\RECORD',
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\entry_points.txt',
    'DATA'),
   ('markupsafe-3.0.3.dist-info\\RECORD',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '
    'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\RECORD',
+   'DATA'),
+  ('click-8.5.0.dist-info\\METADATA',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\click-8.5.0.dist-info\\METADATA',
+   'DATA'),
+  ('markupsafe-3.0.3.dist-info\\licenses\\LICENSE.txt',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\licenses\\LICENSE.txt',
+   'DATA'),
+  ('werkzeug-3.1.8.dist-info\\WHEEL',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\WHEEL',
+   'DATA'),
+  ('markupsafe-3.0.3.dist-info\\WHEEL',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\WHEEL',
+   'DATA'),
+  ('flask-3.1.3.dist-info\\METADATA',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\METADATA',
+   'DATA'),
+  ('flask-3.1.3.dist-info\\RECORD',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\RECORD',
+   'DATA'),
+  ('itsdangerous-2.2.0.dist-info\\INSTALLER',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\INSTALLER',
+   'DATA'),
+  ('markupsafe-3.0.3.dist-info\\top_level.txt',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\top_level.txt',
+   'DATA'),
+  ('werkzeug-3.1.8.dist-info\\licenses\\LICENSE.txt',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\licenses\\LICENSE.txt',
+   'DATA'),
+  ('flask-3.1.3.dist-info\\WHEEL',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\WHEEL',
+   'DATA'),
+  ('itsdangerous-2.2.0.dist-info\\METADATA',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\itsdangerous-2.2.0.dist-info\\METADATA',
+   'DATA'),
+  ('markupsafe-3.0.3.dist-info\\METADATA',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\METADATA',
+   'DATA'),
+  ('markupsafe-3.0.3.dist-info\\INSTALLER',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\markupsafe-3.0.3.dist-info\\INSTALLER',
+   'DATA'),
+  ('flask-3.1.3.dist-info\\REQUESTED',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\flask-3.1.3.dist-info\\REQUESTED',
+   'DATA'),
+  ('werkzeug-3.1.8.dist-info\\METADATA',
+   'C:\\Users\\isaac f\\Documents\\My codes\\git '
+   'repos\\desbravador_central_v0_2_a\\.venv\\Lib\\site-packages\\werkzeug-3.1.8.dist-info\\METADATA',
    'DATA'),
   ('base_library.zip',
    'C:\\Users\\isaac f\\Documents\\My codes\\git '

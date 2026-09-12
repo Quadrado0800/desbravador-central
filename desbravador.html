@@ -1,0 +1,117 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>
+        Desbravador Light Web
+    </title>
+    <link rel="shortcut icon"
+          href="/static/global/img/produto/lightweb/LW-favicon.ico"/>
+    <meta name="description" content="User login page"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="margin: 0; opacity: 0; transition: opacity 1.0s ease;
+  -webkit-transition: opacity 1.0s ease;">
+<div id="login"></div>
+</body>
+
+
+
+
+
+
+
+
+
+
+	
+<script type="text/javascript" src="/static/global/dist/login-webpack.js?_v=1.95.5"></script>
+		
+
+
+<script>
+
+  const tempoSessao = `30`
+  const is2Fa = false;
+
+  var loginDto = {
+    acessoExistente: JSON.parse(`true` || false),
+    springSecurityContext: `org.springframework.security.core.context.SecurityContextImpl@4d4a25e0: Authentication: org.springframework.security.authentication.UsernamePasswordAuthenticationToken@4d4a25e0: Principal: UsuarioImutavel(usuario=Usuario(id=91, usuarioEmail=UsuarioEmail(id=24974, email=isaacjoaofreitas@gmail.com)), nomeUsuario=Isaac, nomeSchema=cliente_6148); Credentials: [PROTECTED]; Authenticated: true; Details: org.springframework.security.web.authentication.WebAuthenticationDetails@255f8: RemoteIpAddress: 191.243.238.83; SessionId: 885c8d04-aae6-4cea-ae05-cae16169e1fe; Granted Authorities: ROLE_USER`,
+    serie: `6148`,
+    nomeTenant: `POUSADA ATLANTIC`,
+    tenant: `6148`,
+    error: ``,
+    tempo: tempoSessao || 30,
+    tipoProduto: `LIGHT_WEB`,
+    success: ``,
+    email: ``,
+    logoVendorBase64: ``,
+    codigoChat: `59EF91BAE8BD46BA80B8804C1EDFD1A1`,
+    telefoneSuporte: `+55 (48) 3244-0398`,
+    horarioSuporte: `08h às 12h e das 13h30 às 18h`,
+    diaSemanaSuporte: `Segunda a Sexta`,
+    horarioSuporteMatriz: `07h às 08h, 12h às 13h30 e das 19h às 23h`,
+    exibeSuporteMatriz: `false`.toLowerCase() === 'true',
+    habilita2fa: is2Fa
+  }
+
+  var pathDefault = '/';
+
+  function alterarCookie (nome, novoValor, path) {
+    let valorAntigo = getCookie(nome)
+    if (valorAntigo != '') {
+      document.cookie = nome + '=' + valorAntigo + '; path=' + path + ' expires=Thu, 01 Jan 1970 00:00:00 GMT'
+    }
+    document.cookie = nome + '=' + novoValor + '; path=' + path
+  }
+
+  function getCookie (nome) {
+    if (document.cookie.length > 0) {
+      let c_start = document.cookie.indexOf(nome + '=')
+      if (c_start != -1) {
+        c_start = c_start + nome.length + 1
+        let c_end = document.cookie.indexOf(';', c_start)
+        if (c_end == -1) {
+          c_end = document.cookie.length
+        }
+        return unescape(document.cookie.substring(c_start, c_end))
+      }
+    }
+    return ''
+  }
+
+  function controlaMovidesk() {
+      const element = document.getElementsByClassName('md-chat-widget-wrapper')[0];
+      movideskChatWidgetChangeWindowState('maximized')
+      if (element.style.visibility === 'hidden' || element.style.visibility === '') {
+          element.style.visibility = 'visible';
+      } else {
+          element.style.visibility = 'hidden';
+      }
+  }
+
+  new login.LoginRender(loginDto);
+
+  localStorage.removeItem("contTempoNotificacaoTarifador");
+  localStorage.removeItem("tempoNotificacaoTarifador");
+  sessionStorage.removeItem("ultimaData");
+  localStorage.removeItem("ultimaData");
+  sessionStorage.removeItem("conf");
+</script>
+<style>
+    .md-chat-widget-wrapper {
+        visibility: hidden;
+    }
+</style>
+
+<script type="text/javascript">
+    var mdChatClient='59EF91BAE8BD46BA80B8804C1EDFD1A1';
+</script>
+
+<script src="https://chat.movidesk.com/Scripts/chat-widget.min.js"></script>
+
+</html>
